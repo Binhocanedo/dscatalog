@@ -1,6 +1,8 @@
 package com.fabio.dscatalog.resources;
 
 import com.fabio.dscatalog.entities.Category;
+import com.fabio.dscatalog.services.CategoryService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,13 +15,13 @@ import java.util.List;
 @RequestMapping(value = "/categories")
 public class CategoryResource {
 
+    @Autowired
+    private CategoryService categoryService;
+
     @GetMapping
     public ResponseEntity<List<Category>> findAll(){
-        List<Category> list = new ArrayList<>();
-        list.add(new Category(1L, "Books"));
-        list.add(new Category(2L, "Tech"));
-        list.add(new Category(3L, "SmartPhones"));
 
+        List<Category> list = categoryService.findAll();
         return ResponseEntity.ok().body(list);
     }
 }

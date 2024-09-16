@@ -1,3 +1,3 @@
-INSERT INTO tb_caterogy(name) VALUES ('Books');
-INSERT INTO tb_caterogy(name) VALUES ('Electronics');
-INSERT INTO tb_caterogy(name) VALUES ('Computers');
+INSERT INTO tb_category(name) VALUES ('Books');
+INSERT INTO tb_category(name) VALUES ('Electronics');
+INSERT INTO tb_category(name) VALUES ('Computers');

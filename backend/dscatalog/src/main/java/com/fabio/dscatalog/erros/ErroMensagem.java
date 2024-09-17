@@ -7,7 +7,7 @@ import org.springframework.http.HttpStatus;
 @AllArgsConstructor
 public enum ErroMensagem {
 
-    CATEGORIA_INEXISTENTE("Categoria não encontrada", HttpStatus.BAD_REQUEST);
+    CATEGORIA_INEXISTENTE("Categoria não encontrada", HttpStatus.NOT_FOUND);
 
     private final String message;
 

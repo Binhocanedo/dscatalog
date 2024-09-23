@@ -4,13 +4,16 @@ import com.fabio.dscatalog.dto.CategoryDTO;
 import com.fabio.dscatalog.entities.Category;
 import com.fabio.dscatalog.erros.ErroMensagem;
 import com.fabio.dscatalog.exceptions.ApiException;
+import com.fabio.dscatalog.exceptions.DataBaseException;
 import com.fabio.dscatalog.exceptions.ResourceNotFoundException;
 import com.fabio.dscatalog.mapper.CategoryMapper;
 import com.fabio.dscatalog.repositories.CategoryRespository;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
@@ -56,6 +59,18 @@ public class CategoryService {
             return categoryMapper.toDto(entity);
         }catch(EntityNotFoundException exception){
             throw new ResourceNotFoundException("id not found " + id);
+        }
+    }
+
+    @Transactional(propagation = Propagation.SUPPORTS)
+    public void delete(Long id) {
+        if(!categoryRespository.existsById(id)){
+            throw new ResourceNotFoundException("Recurso não encontrado.");
+        }
+        try{
+            categoryRespository.deleteById(id);
+        }catch(DataIntegrityViolationException exception){
+            throw new ApiException(ErroMensagem.INTEGRIDADE_VIOLADA);
         }
     }
 }

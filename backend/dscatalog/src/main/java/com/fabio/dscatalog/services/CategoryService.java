@@ -4,8 +4,10 @@ import com.fabio.dscatalog.dto.CategoryDTO;
 import com.fabio.dscatalog.entities.Category;
 import com.fabio.dscatalog.erros.ErroMensagem;
 import com.fabio.dscatalog.exceptions.ApiException;
+import com.fabio.dscatalog.exceptions.ResourceNotFoundException;
 import com.fabio.dscatalog.mapper.CategoryMapper;
 import com.fabio.dscatalog.repositories.CategoryRespository;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -43,5 +45,17 @@ public class CategoryService {
         Category entity = categoryMapper.toEntity(dto);
         entity = categoryRespository.save(entity);
         return categoryMapper.toDto(entity);
+    }
+
+    @Transactional
+    public CategoryDTO update(Long id, CategoryDTO dto) {
+        try{
+            Category entity = categoryRespository.getReferenceById(id);
+            categoryMapper.updateEntityFromDto(dto, entity);
+            entity = categoryRespository.save(entity);
+            return categoryMapper.toDto(entity);
+        }catch(EntityNotFoundException exception){
+            throw new ResourceNotFoundException("id not found " + id);
+        }
     }
 }

@@ -1,18 +1,13 @@
 package com.fabio.dscatalog.resources;
 
 import com.fabio.dscatalog.dto.CategoryDTO;
-import com.fabio.dscatalog.entities.Category;
 import com.fabio.dscatalog.services.CategoryService;
-import jakarta.servlet.http.HttpServlet;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.web.servlet.ServletComponentScan;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -36,7 +31,13 @@ public class CategoryResource {
     public ResponseEntity<CategoryDTO> insert(@RequestBody CategoryDTO dto){
         dto = categoryService.insert(dto);
         URI url = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
-                .buildAndExpand(dto.getId()).toUri();
+                .buildAndExpand(dto.id()).toUri();
         return ResponseEntity.created(url).body(dto);
+    }
+
+    @PutMapping(value = "/{id}")
+    public ResponseEntity<CategoryDTO> update(@PathVariable Long id, @RequestBody CategoryDTO dto){
+        dto = categoryService.update(id, dto);
+        return ResponseEntity.ok().body(dto);
     }
 }

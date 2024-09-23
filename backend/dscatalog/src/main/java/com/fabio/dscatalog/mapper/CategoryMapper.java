@@ -9,11 +9,15 @@ public class CategoryMapper {
 
     public Category toEntity(CategoryDTO dto){
         Category entity = new Category();
-        entity.setName(dto.getName());
+        entity.setName(dto.name());
         return entity;
     }
 
     public CategoryDTO toDto(Category entity){
         return new CategoryDTO(entity);
+    }
+
+    public void updateEntityFromDto(CategoryDTO dto, Category entity){
+        entity.setName(dto.name());
     }
 }

@@ -12,6 +12,8 @@ import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -30,10 +32,9 @@ public class CategoryService {
     private CategoryMapper categoryMapper;
 
     @Transactional(readOnly = true)
-    public List<CategoryDTO> findAll (){
-       List<Category> categoryList = categoryRespository.findAll();
-       return categoryList.stream().map(CategoryDTO::new).collect(Collectors.toList());
-
+    public Page<CategoryDTO> findAllPaged(PageRequest pageRequest){
+       Page<Category> categoryList = categoryRespository.findAll(pageRequest);
+       return categoryList.map(CategoryDTO::new);
     }
 
     @Transactional(readOnly = true)

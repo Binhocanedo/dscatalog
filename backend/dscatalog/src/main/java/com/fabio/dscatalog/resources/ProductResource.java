@@ -36,7 +36,7 @@ public class ProductResource {
         return ResponseEntity.ok().body(dto);
     }
 
-    /*@PostMapping
+    @PostMapping
     public ResponseEntity<ProductDTO> insert(@RequestBody ProductDTO dto){
         dto = ProductService.insert(dto);
         URI url = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
@@ -54,5 +54,5 @@ public class ProductResource {
     public ResponseEntity<ProductDTO> delete(@PathVariable Long id){
         ProductService.delete(id);
         return ResponseEntity.noContent().build();
-    }*/
+    }
 }

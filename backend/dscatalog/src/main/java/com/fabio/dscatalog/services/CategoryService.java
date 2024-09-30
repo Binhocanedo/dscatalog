@@ -4,7 +4,6 @@ import com.fabio.dscatalog.dto.CategoryDTO;
 import com.fabio.dscatalog.entities.Category;
 import com.fabio.dscatalog.erros.ErroMensagem;
 import com.fabio.dscatalog.exceptions.ApiException;
-import com.fabio.dscatalog.exceptions.DataBaseException;
 import com.fabio.dscatalog.exceptions.ResourceNotFoundException;
 import com.fabio.dscatalog.mapper.CategoryMapper;
 import com.fabio.dscatalog.repositories.CategoryRespository;
@@ -17,10 +16,6 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor

@@ -20,7 +20,7 @@ public class ProductFixture  implements TemplateLoader {
                 add(price, 800.0);
                 add(imgUrl, "https://img.com/img.png");
                 add(date, Instant.parse("2020-10-20T03:00:00Z"));
-                add(categories, has(1).of(Category.class, "basic"));
+                //add(categories, has(1).of(Category.class, "basic"));
             }
         });
     }

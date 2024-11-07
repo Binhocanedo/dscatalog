@@ -7,6 +7,7 @@ import com.fabio.dscatalog.exceptions.ApiException;
 import com.fabio.dscatalog.exceptions.ResourceNotFoundException;
 import com.fabio.dscatalog.mapper.ProductMapper;
 import com.fabio.dscatalog.repositories.ProductRepository;
+import com.fabio.dscatalog.utils.SameDataUtils;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -48,19 +49,24 @@ public class ProductService {
     @Transactional
     public ProductDTO update(Long id, ProductDTO dto){
         try{
-            Product entity = productRepository.getReferenceById(dto.getId());
-            productMapper.updateEntityFromDto(dto, entity);
-            entity = productRepository.save(entity);
-            return productMapper.toDto(entity);
+            Product existingEntity = productRepository.getReferenceById(id);
+            Product updatedEntity = new Product();
+            productMapper.updateEntityFromDto(dto, updatedEntity);
+            if(SameDataUtils.isSameData(existingEntity, updatedEntity)){
+                throw new ApiException(ErroMensagem.PRODUTO_ATUALIZADO);
+            }
+            productMapper.updateEntityFromDto(dto, existingEntity);
+            existingEntity = productRepository.save(existingEntity);
+            return productMapper.toDto(existingEntity);
         }catch (EntityNotFoundException exception){
-            throw new ResourceNotFoundException("id not found" + dto.getId());
+            throw new ApiException(ErroMensagem.PRODUTO_INEXISTENTE);
         }
     }
 
     @Transactional(propagation = Propagation.SUPPORTS)
     public void delete(Long id) {
         if(!productRepository.existsById(id)){
-            throw new ResourceNotFoundException("Recurso não encontrado");
+            throw new ApiException(ErroMensagem.RECURSO_NAO_ENCONTRADO);
         }
         try{
             productRepository.deleteById(id);

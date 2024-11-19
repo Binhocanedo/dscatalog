@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 public class dscatologHandler {
 
     @ExceptionHandler(ApiException.class)
-    public ResponseEntity<ErroResponse> handleApiException(final ApiException exception, HttpServletRequest request){
+    public ResponseEntity<ErroResponse> handleApiException(final ApiException exception){
         final ErroMensagem erroMensagem = exception.getErroMensage();
         final HttpStatus httpStatus = erroMensagem.getStatus();
         final ErroResponse erroResponse = erroMensagem.criarErrorResponse();
@@ -28,7 +28,7 @@ public class dscatologHandler {
     }
 
     @ExceptionHandler(DataBaseException.class)
-    public ResponseEntity<ErroResponse> handleDataBaseException(final DataBaseException exception, HttpServletRequest request){
+    public ResponseEntity<ErroResponse> handleDataBaseException(final DataBaseException exception){
         final ErroMensagem erroMensagem = exception.getErroMensagem();
         final HttpStatus httpStatus = erroMensagem.getStatus();
         final ErroResponse erroResponse = erroMensagem.criarErrorResponse();

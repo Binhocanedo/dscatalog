@@ -25,7 +25,7 @@ public class ProductMapper {
         entity.getCategories().clear();
 
         for(CategoryDTO categoryDto : dto.getCategories()){
-            Category category = categoryRespository.getOne(dto.getId());
+            Category category = categoryRespository.getReferenceById(categoryDto.id());
             entity.getCategories().add(category);
         }
         return entity;
@@ -43,7 +43,7 @@ public class ProductMapper {
         entity.setPrice(dto.getPrice());
         entity.getCategories().clear();
         for(CategoryDTO categoryDto : dto.getCategories()){
-            Category category = categoryRespository.getOne(dto.getId());
+            Category category = categoryRespository.getReferenceById(categoryDto.id());
             entity.getCategories().add(category);
         }
     }

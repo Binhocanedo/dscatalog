@@ -4,7 +4,6 @@ import com.fabio.dscatalog.dto.ProductDTO;
 import com.fabio.dscatalog.entities.Product;
 import com.fabio.dscatalog.erros.ErroMensagem;
 import com.fabio.dscatalog.exceptions.ApiException;
-import com.fabio.dscatalog.exceptions.ResourceNotFoundException;
 import com.fabio.dscatalog.mapper.ProductMapper;
 import com.fabio.dscatalog.repositories.ProductRepository;
 import com.fabio.dscatalog.utils.SameDataUtils;

@@ -4,7 +4,6 @@ import br.com.six2six.fixturefactory.Fixture;
 import com.fabio.dscatalog.dto.ProductDTO;
 import com.fabio.dscatalog.entities.Product;
 import com.fabio.dscatalog.exceptions.ApiException;
-import com.fabio.dscatalog.exceptions.ResourceNotFoundException;
 import com.fabio.dscatalog.fixture.CategoryDTOFixture;
 import com.fabio.dscatalog.fixture.CategoryFixture;
 import com.fabio.dscatalog.fixture.ProductDTOFixture;
